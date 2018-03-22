@@ -17,7 +17,6 @@ const ADD_TO_CART = 'ADD_TO_CART';
 
 //Middleware
 const _FULFILLED = '_FULFILLED';
-const _PENDING =   '_PENDING';
 
 export function getUser() {
     let userData = axios.get('/auth/me').then(res => {

@@ -1,0 +1,14 @@
+REACT_APP_LOGIN=/auth
+REACT_APP_LOGOUT=/auth/logout
+
+HOMEPAGE=/#/
+FAILURE=/
+
+SESSION_SECRET=queenbeyasdfhasjkdfhslakdjfhjslajkdfhlas
+SERVER_PORT=3009
+DOMAIN=rexnilsen.auth0.com
+CLIENT_ID=H3V8ywIoxdAoUlcHPm3m2u9B7ljPip57
+CLIENT_SECRET=GyAY22_Rd-_wOO0kT20tJwzT8HrZxKLo0vHa5ULQoLs-nUoiDkT2iT0efv61Ybn_
+CALLBACK_URL=/auth/callback
+
+CONNECTION_STRING=postgres://gbqsjxqcglxcbm:5f16804858d6282edc4d47069da6dbe2b9bb14344acd221923ca963819814f5a@ec2-54-204-46-60.compute-1.amazonaws.com:5432/d437gcb2tmlqvh?ssl=true

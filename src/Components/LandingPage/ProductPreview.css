@@ -13,6 +13,18 @@
     margin: 10px;
 }
 
+.slider-list {
+    min-height: calc(80vw - 70em);
+    
+  }
+  
+  .slider-decorator-2 {
+    position: absolute;
+    bottom: -10% !important;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
 .grow{
     display: flex;
     flex-direction: column;
