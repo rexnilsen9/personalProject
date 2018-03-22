@@ -1,0 +1,32 @@
+.promo{
+    width: 100%;
+    height: 35px;
+    background: tan;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+.header{
+    background-color: black;
+    width: 100%;
+    height: 120px;
+    color: white;
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    opacity: 50%;
+}
+
+#input{
+    min-width: 300px;
+}
+
+#button{
+    min-width: 200px;
+}
+
+#img {
+    max-width: 50px;
+    max-height: 50px;
+}

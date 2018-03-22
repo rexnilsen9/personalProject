@@ -1,0 +1,10 @@
+.ads {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+}
+
+.pic > img {
+    max-width: 700px;
+    max-height: 500px;
+}

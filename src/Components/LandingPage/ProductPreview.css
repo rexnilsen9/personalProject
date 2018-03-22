@@ -1,0 +1,39 @@
+.productpreview{
+    height: 700px;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.carousel {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    margin: 10px;
+}
+
+.grow{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 350px;
+    background: white;
+    color: black;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid gray;
+}
+.grow:hover
+{
+        -webkit-transform: scale(1.055);
+        -ms-transform: scale(1.055);
+        transform: scale(1.055);
+        transition: .4s;
+}
+
+#image{
+    max-width: 150px;
+    max-height: 200px;
+}

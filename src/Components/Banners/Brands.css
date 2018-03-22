@@ -1,0 +1,15 @@
+.brands {
+    display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-around;
+	align-items: center;
+	align-content: stretch;
+    height: 200px;
+    width: 100%;
+}
+
+.pics > img {
+    max-width: 150px;
+    max-height: 150px;
+}
