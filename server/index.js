@@ -19,6 +19,9 @@ const {
 
 
 const app = express();
+
+app.use(express.static( `${__dirname}/../build` ));
+
 app.use(bodyParser.json());
 app.use(cors());
 massive(CONNECTION_STRING).then(db => {
@@ -68,8 +71,8 @@ passport.deserializeUser((id, done) => {
 
 app.get('/auth', passport.authenticate('auth0'));
 app.get('/auth/callback', passport.authenticate('auth0', {
-    successRedirect: 'http://localhost:3000/#/',
-    failureRedirect: 'http://localhost:3000/'
+    successRedirect: process.env.HOMEPAGE,
+    failureRedirect: process.env.FAILURE
 }))
 app.get('/auth/me', (req, res) => {
     if (req.user) {
@@ -88,7 +91,7 @@ app.get('/bestsellers', (req, res) => {
 })
 app.get('/auth/logout', (req, res) => {
     req.logOut();
-    res.redirect('http://localhost:3000/')
+    res.redirect(process.env.FAILURE)
 })
 // app.post('/addtocart', (req, res) => {
 //     app.post('db').create_user_cart().then(response => {

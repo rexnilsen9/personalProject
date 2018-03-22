@@ -1,0 +1,8 @@
+Host *
+ AddKeyChain yes
+ UserKeyChain yes
+ IdentityFile ~/.ssh/id_rsa
+
+Host rex
+ user root
+ Hostname 159.65.103.170
