@@ -36,7 +36,7 @@ class BestSellersPreview extends React.Component {
                                 <br />
                                 {product.item}
                                 <br />
-                                {product.price}
+                                {'$' + product.price}
                                 <AddToCart productId={product.id} />
                             </div>
                         ))}

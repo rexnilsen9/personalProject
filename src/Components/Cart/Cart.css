@@ -1,6 +1,11 @@
 .Cart {
     display: flex;
-    flex-direction: row;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: start;
+}
 
+.product {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }

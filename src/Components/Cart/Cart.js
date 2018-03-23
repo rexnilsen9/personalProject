@@ -9,22 +9,33 @@ class Cart extends React.Component {
     componentDidMount() {
         this.props.getCart();
     }
-
+    // componentDidMount() {
+    //     calculateTotal(){
+            
+    //     }
+    // }
     render() {
-        let display = this.props.cart.map((product, index) => (
+        let cartDisplay = this.props.cart.map((product, index) => (
             <div key={index} className='Cart'>
-                <img id='img' src={product.img} alt=""/>
-                <div>{product.item}</div>
-                <div>{product.price}</div>
-                <div>{product.count}</div>
-                <br/>
+                <img id='img' src={product.img} alt="" />
+                <div className='product'>
+                    <span>
+                        {product.item}
+                    </span>
+                    <span>
+                        {'$' + product.price}
+                
+                    </span>
+
+                </div>
+                <br />
             </div>
         ))
         return (
             <div>
                 <Login />
                 <h1>Your Cart</h1>
-                {display}
+                {cartDisplay}
             </div>
         )
     }
