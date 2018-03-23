@@ -94,11 +94,18 @@ app.get('/auth/logout', (req, res) => {
     req.logOut();
     res.redirect(process.env.FAILURE)
 })
-// app.post('/addtocart', (req, res) => {
-//     app.post('db').create_user_cart().then(response => {
-//         res.status(200).send(response)
-//     })
-// })
+app.post('/addtocart/:id', (req, res) => {
+    const user_id = req.user.id;
+    const product_id = req.body.id;
+    app.get('db').add_to_cart(user_id, product_id).then(cart => {
+        res.status(200).send(cart)
+    })
+})
+app.get('/getcart', (req, res) => {
+    app.get('db').get_cart().then(response => {
+        res.status(200).send(response)
+    })
+})
 
 
 app.listen(SERVER_PORT, () => console.log(`Server is listening on port ${SERVER_PORT} `));

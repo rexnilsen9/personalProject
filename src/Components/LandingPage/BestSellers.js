@@ -27,8 +27,8 @@ class BestSellersPreview extends React.Component {
                 <div className='carousel'>
 
                     <Carousel slidesToShow={4} slidesToScroll={4} speed={500} width='80%' >
-                        {this.props.bestSellers.map(product => (
-                            <div className='grow'>
+                        {this.props.bestSellers.map((product, index) => (
+                            <div className='grow' key={index}>
 
                                 <img id='image' src={product.img} alt="" />
                                 <br />
@@ -37,7 +37,7 @@ class BestSellersPreview extends React.Component {
                                 {product.item}
                                 <br />
                                 {product.price}
-                                <AddToCart />
+                                <AddToCart productId={product.id} />
                             </div>
                         ))}
                     </Carousel>

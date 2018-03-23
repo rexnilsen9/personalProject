@@ -1,26 +1,31 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { addToCart } from '../../Ducks/reducer'
+import { addToCart } from '../../Ducks/reducer';
 
 
 class AddToCart extends React.Component {
-    componentDidMount() {
-        this.props.addToCart();
-    }
-
-    render() {
+    
+    
+    render(props) {
+        
         return (
             <div>
 
-                <button onClick={() => addToCart()}>Add To Cart</button>
+                <button onClick={() => this.props.addToCart(this.props.productId)} >Add To Cart</button>
+                
             </div>
+            
         )
+        
     }
 }
 
 function mapStateToProps(state) {
+    
     return {
         cart: state.cart,
+        products: state.products,
+        user: state.user,
     }
 }
 

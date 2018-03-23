@@ -12,6 +12,7 @@ const GET_USER = 'GET_USER';
 const GET_PRODUCT_RECOMMENDED = 'GET_PRODUCT_RECOMMENDED';
 const GET_PRODUCT_BESTSELLERS = 'GET_PRODUCT_BESTSELLERS';
 const ADD_TO_CART = 'ADD_TO_CART';
+const GET_CART = 'GET_CART';
 
 
 
@@ -45,8 +46,8 @@ export function getBestSellers() {
         payload: bestSellers,
     }
 }
-export function addToCart(){
-    let cartData = axios.post('addtocart').then(res => {
+export function addToCart(id) {
+    let cartData = axios.post(`/addtocart/${id}`, {id}).then(res => {
         return res.data;
     })
     return {
@@ -54,7 +55,15 @@ export function addToCart(){
         payload: cartData,
     }
 }
-
+export function getCart() {
+    let cart = axios.get('/getcart').then(res => {
+        return res.data;
+    })
+    return {
+        type: GET_CART,
+        payload: cart,
+    }
+}
 export default function reducer(state = initialState, action) {
     switch (action.type) {
         case GET_USER + _FULFILLED:
@@ -68,8 +77,10 @@ export default function reducer(state = initialState, action) {
 
         case GET_PRODUCT_BESTSELLERS + _FULFILLED:
             return Object.assign({}, state, {
-                bestSellers:
-                    action.payload
+                bestSellers: action.payload
+            })
+        case GET_CART + _FULFILLED:
+            return Object.assign({}, state, {cart: action.payload
             })
 
         default:

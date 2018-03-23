@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getUser } from './../../Ducks/reducer';
-import Cart from '../Cart/Cart';
 import './Login.css';
 
 
@@ -18,7 +17,7 @@ class Login extends React.Component {
             <div>
                 <div className='promo'>Special Promotions</div>
                 <div className='header'>
-                    <h3>Backcountry</h3>
+                    <h3>VerticalCountry</h3>
                     <input id='input' placeholder='Search All Products' />
                     <p>Chat   1-800-409-4502</p>
                     <a href={user.id ? process.env.REACT_APP_LOGOUT : process.env.REACT_APP_LOGIN}>
