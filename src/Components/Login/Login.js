@@ -7,6 +7,7 @@ import './Login.css';
 
 class Login extends React.Component {
     componentDidMount() {
+        
         this.props.getUser();
     }
 
@@ -21,7 +22,7 @@ class Login extends React.Component {
                     <input id='input' placeholder='Search All Products' />
                     <p>Chat   1-800-409-4502</p>
                     <a href={user.id ? process.env.REACT_APP_LOGOUT : process.env.REACT_APP_LOGIN}>
-                        <button> {user.id ? user.user_name : 'Login/Signup'} </button> </a>
+                        <button> {user.id ? `${user.user_name ? user.user_name :'Logout'}` : 'Login/Signup'} </button> </a>
                     <Link to='/cart'><img id='img' src="http://www.clker.com/cliparts/v/6/L/p/Q/f/shopping-cart-white-hi.png" alt=""/></Link>
                     <Link to='/profile'> <button>Profile</button> </Link>
                 </div>

@@ -1,34 +1,62 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getCart } from '../../Ducks/reducer';
+import { getCart, addToCart, deleteItem } from '../../Ducks/reducer';
 import Login from '../Login/Login';
+import './Cart.css';
 
 
 
 class Cart extends React.Component {
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            cart: props.cart,
+        }
+    }
+
     componentDidMount() {
         this.props.getCart();
     }
-    // componentDidMount() {
-    //     calculateTotal(){
-            
-    //     }
-    // }
+    componentDidUpdate(prevProps) {
+        if (prevProps.cart !== this.props.cart) {
+            this.setState({
+                cart: this.props.cart
+            })
+        }
+    }
+
     render() {
-        let cartDisplay = this.props.cart.map((product, index) => (
+        let cartDisplay = this.state.cart.map((product, index) => (
             <div key={index} className='Cart'>
-                <img id='img' src={product.img} alt="" />
+
                 <div className='product'>
-                    <span>
+                    <div>
+                        <img id='img' src={product.img} alt="" />
+                    </div>
+                    <div>
                         {product.item}
-                    </span>
-                    <span>
+                    </div>
+
+                    <div>
+                        {'$' + product.each}
+                    </div>
+                    <input id='quantity' type='number' min='0' value={product.quantity}
+                        onChange={(e) => {
+                            if (parseInt(e.target.value, 10) > parseInt(product.quantity, 10)) {
+                                this.props.addToCart(product.id)
+                            } else {
+                                this.props.deleteItem(this.props.cart_id)
+                            }
+                        }
+                        } />
+
+                    <div>
                         {'$' + product.price}
-                
-                    </span>
+                    </div>
 
                 </div>
-                <br />
+
             </div>
         ))
         return (
@@ -45,7 +73,16 @@ class Cart extends React.Component {
 function mapStateToProps(state) {
     return {
         cart: state.cart,
+        products: state.products,
     }
 }
 
-export default connect(mapStateToProps, { getCart })(Cart);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        addToCart: id => dispatch(addToCart(id)),
+        getCart: () => dispatch(getCart()),
+        deleteItem: id => dispatch(deleteItem(id)),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);

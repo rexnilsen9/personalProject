@@ -13,6 +13,7 @@ const GET_PRODUCT_RECOMMENDED = 'GET_PRODUCT_RECOMMENDED';
 const GET_PRODUCT_BESTSELLERS = 'GET_PRODUCT_BESTSELLERS';
 const ADD_TO_CART = 'ADD_TO_CART';
 const GET_CART = 'GET_CART';
+const DELETE_ITEM = 'DELETE_ITEM';
 
 
 
@@ -47,14 +48,15 @@ export function getBestSellers() {
     }
 }
 export function addToCart(id) {
-    let cartData = axios.post(`/addtocart/${id}`, {id}).then(res => {
-        return res.data;
+    let cartData = axios.post(`/addtocart/${id}`, { id }).then(res => {
+        return res.data
     })
     return {
         type: ADD_TO_CART,
         payload: cartData,
     }
 }
+
 export function getCart() {
     let cart = axios.get('/getcart').then(res => {
         return res.data;
@@ -62,6 +64,15 @@ export function getCart() {
     return {
         type: GET_CART,
         payload: cart,
+    }
+}
+export function deleteItem(id) {
+    let itemToDelete = axios.delete(`/deleteitem/${id}`).then(res => {
+        return res.data
+    })
+    return {
+        type: DELETE_ITEM,
+        payload: itemToDelete
     }
 }
 export default function reducer(state = initialState, action) {
@@ -80,7 +91,12 @@ export default function reducer(state = initialState, action) {
                 bestSellers: action.payload
             })
         case GET_CART + _FULFILLED:
-            return Object.assign({}, state, {cart: action.payload
+            return Object.assign({}, state, {
+                cart: action.payload
+            })
+        case DELETE_ITEM + _FULFILLED:
+            return Object.assign({}, state, {
+                cart: action.payload
             })
 
         default:

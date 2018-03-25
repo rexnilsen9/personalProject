@@ -101,9 +101,20 @@ app.post('/addtocart/:id', (req, res) => {
         res.status(200).send(cart)
     })
 })
+app.delete('/deleteitem/:id', (req, res) => {
+    const user_id = req.user.id;
+    const cart_id = req.params.id;
+    console.log(user_id, req.params)
+    app.get('db').delete_item(user_id, cart_id).then
+    (cart => {
+        res.status(200).send(cart)
+    })
+})
 app.get('/getcart', (req, res) => {
-    app.get('db').get_cart().then(response => {
+    app.get('db').get_cart(req.user.id).then(response => {
+
         res.status(200).send(response)
+    
     })
 })
 

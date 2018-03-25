@@ -1,9 +1,6 @@
-INSERT INTO cart 
-(user_id, product_id)
-VALUES
-($1,$2);
-
-
+DELETE FROM cart 
+WHERE
+product_id = $1;
 
 
 SELECT products.img, products.id, products.item, products.price as each, sum(products.price) as price, count(products.id) as quantity
