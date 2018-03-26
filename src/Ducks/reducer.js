@@ -15,7 +15,7 @@ const ADD_TO_CART = 'ADD_TO_CART';
 const GET_CART = 'GET_CART';
 const DELETE_ITEM = 'DELETE_ITEM';
 const DECREMENT_ITEM = 'DECREMENT_ITEM';
-
+const DELETE_CART = 'DELETE_CART';
 
 
 //Middleware
@@ -85,23 +85,29 @@ export function decrementOne(id) {
         payload: itemToDecrement
     }
 }
-export function onToken(token) {
-    console.log('token', token);
-    token.card = void 0;
-    const { amount } = this.state
-    axios.post('/api/payment', { token, amount })
-      .then(charge => { console.log('charge response', charge.data) });;
-  }
+export function deleteCart(id) {
+    let itemToDelete = axios.delete(`deletecart`).then(res => {
+        return res.data;
+    })
+    return {
+        type: DELETE_CART,
+        payload: itemToDelete,
+    }
+}
+
 export default function reducer(state = initialState, action) {
     switch (action.type) {
         case GET_USER + _FULFILLED:
-            return Object.assign({}, state, { user: action.payload })
+            return Object.assign({}, state, { 
+                user: action.payload })
 
         case GET_PRODUCT_RECOMMENDED + _FULFILLED:
-            return Object.assign({}, state, { products: action.payload })
+            return Object.assign({}, state, { 
+                products: action.payload })
 
         case ADD_TO_CART + _FULFILLED:
-            return Object.assign({}, state, { cart: action.payload })
+            return Object.assign({}, state, { 
+                cart: action.payload })
 
         case GET_PRODUCT_BESTSELLERS + _FULFILLED:
             return Object.assign({}, state, {
@@ -119,6 +125,9 @@ export default function reducer(state = initialState, action) {
             return Object.assign({}, state, {
                 cart: action.payload
             })
+        case DELETE_CART + _FULFILLED:
+            return Object.assign({}, state, { 
+                cart: action.payload })
 
         default:
             return state;

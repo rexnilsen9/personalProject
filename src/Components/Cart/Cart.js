@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import StripeCheckout from 'react-stripe-checkout';
-import { getCart, addToCart, deleteItem, decrementOne } from '../../Ducks/reducer';
+import { getCart, addToCart, deleteItem, decrementOne, deleteCart } from '../../Ducks/reducer';
 import Login from '../Login/Login';
+import axios from 'axios';
 import './Cart.css';
 
 
@@ -26,10 +27,26 @@ class Cart extends React.Component {
             })
         }
     }
+    onToken = token => {
+        console.log('token', token);
+        this.props.deleteCart();
+        token.card = void 0;
+        const { amount } = this.state
+        axios.post('/api/payment', { token, amount })
+        .then(charge => { console.log('charge response', charge.data) })
+        ;;
+      }
     
+    calculateTotal(){
+        if(this.props.cart.length > 0) {
+            return this.props.cart.reduce((acc, item) => {
+                return acc + parseInt(item.price, 10)
+            }, 0).toFixed(2)
+        }
+    }
 
     render() {
-        // let total = this.state.cart.map()
+
         let cartDisplay = this.state.cart.map((product, index) => (
             <div key={index} className='Cart'>
 
@@ -41,7 +58,7 @@ class Cart extends React.Component {
                         {product.item}
                     </div>
                     <div>
-                        <button onClick={(e) => 
+                        <button onClick={(e) =>
                             this.props.deleteItem(product.id)}>Remove</button>
                     </div>
 
@@ -66,23 +83,29 @@ class Cart extends React.Component {
 
             </div>
 
-            
+
         ))
         return (
             <div>
                 <Login />
                 <h1>Your Cart</h1>
                 {cartDisplay}
+                <div>
+                    Total ${this.calculateTotal()}
+                </div>
+                <br/>
                 <StripeCheckout
-  token={this.onToken}
-  stripeKey={process.env.REACT_APP_STRIPE_PUBLIC_KEY}
-  amount={this.state.total}
-/>
+                    token={this.onToken}
+                    stripeKey={process.env.REACT_APP_STRIPE_PUBLIC_KEY}
+                    amount={this.calculateTotal()*100}
+                    
+                />
 
             </div>
         )
     }
 }
+
 
 
 function mapStateToProps(state) {
@@ -97,7 +120,8 @@ const mapDispatchToProps = (dispatch) => {
         addToCart: id => dispatch(addToCart(id)),
         getCart: () => dispatch(getCart()),
         deleteItem: id => dispatch(deleteItem(id)),
-        decrementOne: id => dispatch(decrementOne(id))
+        decrementOne: id => dispatch(decrementOne(id)),
+        deleteCart: id => dispatch(deleteCart(id))
     }
 }
 

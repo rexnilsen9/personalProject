@@ -7,7 +7,7 @@ import './Carousel.css'
 
 export default function () {
     return (
-        <Carousel wrapAround={true} autoplay={true} autoplayInterval={6000}>
+        <Carousel wrapAround={true} autoplay={true} autoplayInterval={4000}>
             <div className='mainLanding'>
 
                 <img src="https://images.unsplash.com/photo-1516633630673-67bbad747022?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=cdb98ea7fc64fe94e97465179077e443&auto=format&fit=crop&w=1350&q=80" alt="" />

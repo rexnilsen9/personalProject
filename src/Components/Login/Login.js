@@ -16,7 +16,7 @@ class Login extends React.Component {
         return (
 
             <div>
-                <div className='promo'>Special Promotions</div>
+                <div className='promo'>Free 2-Day Shipping on Orders Orders Over $50 </div>
                 <div className='header'>
                     <h3>VerticalCountry</h3>
                     <input id='input' placeholder='Search All Products' />

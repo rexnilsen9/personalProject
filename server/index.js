@@ -105,7 +105,6 @@ app.post('/addtocart/:id', (req, res) => {
 app.delete('/removeitem/:id', (req, res) => {
     const user_id = req.user.id;
     const product_id = req.params.id;
-    console.log(user_id, req.params)
     app.get('db').delete_item(user_id, product_id).then
     (cart => {
         res.status(200).send(cart)
@@ -127,6 +126,27 @@ app.get('/getcart', (req, res) => {
     
     })
 })
-
+app.post('api/payment', (req, res) => {
+    const charge = stripe.charges.create(
+        {
+            source: req.body.token.id,
+            amount:req.body.amount,
+            currency: 'usd',
+            description: 'Stripe test charge',
+        },
+        function(err, charge){
+            if(err) return res.sendStatus(500);
+            else return res.sendStatus(200)
+        }
+    )
+})
+app.delete('/deletecart', (req, res) => {
+    const user_id = req.user.id;
+    app.get('db').delete_cart(user_id).then(
+        cart => {
+            res.status(200).send(cart)
+        }
+    )
+})
 
 app.listen(SERVER_PORT, () => console.log(`Server is listening on port ${SERVER_PORT} `));
