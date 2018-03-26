@@ -5,7 +5,8 @@ const express = require('express'),
     Auth0Strategy = require('passport-auth0'),
     massive = require('massive')
     bodyParser = require('body-parser')
-    cors = require('cors');
+    cors = require('cors')
+    stripe = require('stripe')(process.env.STRIPE_PRIVATE_KEY);
 
 const {
     SESSION_SECRET,
@@ -101,14 +102,23 @@ app.post('/addtocart/:id', (req, res) => {
         res.status(200).send(cart)
     })
 })
-app.delete('/deleteitem/:id', (req, res) => {
+app.delete('/removeitem/:id', (req, res) => {
     const user_id = req.user.id;
-    const cart_id = req.params.id;
+    const product_id = req.params.id;
     console.log(user_id, req.params)
-    app.get('db').delete_item(user_id, cart_id).then
+    app.get('db').delete_item(user_id, product_id).then
     (cart => {
         res.status(200).send(cart)
     })
+})
+app.delete('/decrementitem/:id', (req, res) => {
+    const user_id = req.user.id;
+    const product_id = req.params.id;
+    app.get('db').decrement_one(user_id, product_id).then(
+        cart => {
+            res.status(200).send(cart)
+        }
+    )
 })
 app.get('/getcart', (req, res) => {
     app.get('db').get_cart(req.user.id).then(response => {

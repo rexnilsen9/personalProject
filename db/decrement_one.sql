@@ -1,6 +1,6 @@
 DELETE FROM cart 
 WHERE
-user_id = $1 AND product_id = $2;
+id IN (SELECT id FROM cart WHERE user_id = $1 AND product_id = $2 LIMIT 1);
 
 
 SELECT products.img, products.id, products.item, products.price as each, sum(products.price) as price, count(products.id) as quantity

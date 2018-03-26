@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getCart, addToCart, deleteItem } from '../../Ducks/reducer';
+import StripeCheckout from 'react-stripe-checkout';
+import { getCart, addToCart, deleteItem, decrementOne } from '../../Ducks/reducer';
 import Login from '../Login/Login';
 import './Cart.css';
 
@@ -25,8 +26,10 @@ class Cart extends React.Component {
             })
         }
     }
+    
 
     render() {
+        // let total = this.state.cart.map()
         let cartDisplay = this.state.cart.map((product, index) => (
             <div key={index} className='Cart'>
 
@@ -37,6 +40,10 @@ class Cart extends React.Component {
                     <div>
                         {product.item}
                     </div>
+                    <div>
+                        <button onClick={(e) => 
+                            this.props.deleteItem(product.id)}>Remove</button>
+                    </div>
 
                     <div>
                         {'$' + product.each}
@@ -46,7 +53,7 @@ class Cart extends React.Component {
                             if (parseInt(e.target.value, 10) > parseInt(product.quantity, 10)) {
                                 this.props.addToCart(product.id)
                             } else {
-                                this.props.deleteItem(this.props.cart_id)
+                                this.props.decrementOne(product.id)
                             }
                         }
                         } />
@@ -58,12 +65,20 @@ class Cart extends React.Component {
                 </div>
 
             </div>
+
+            
         ))
         return (
             <div>
                 <Login />
                 <h1>Your Cart</h1>
                 {cartDisplay}
+                <StripeCheckout
+  token={this.onToken}
+  stripeKey={process.env.REACT_APP_STRIPE_PUBLIC_KEY}
+  amount={this.state.total}
+/>
+
             </div>
         )
     }
@@ -82,6 +97,7 @@ const mapDispatchToProps = (dispatch) => {
         addToCart: id => dispatch(addToCart(id)),
         getCart: () => dispatch(getCart()),
         deleteItem: id => dispatch(deleteItem(id)),
+        decrementOne: id => dispatch(decrementOne(id))
     }
 }
 
