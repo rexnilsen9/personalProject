@@ -51,20 +51,20 @@ class Cart extends React.Component {
             <div key={index} className='Cart'>
 
                 <div className='product'>
-                    <div>
+                    <p>
                         <img id='img' src={product.img} alt="" />
-                    </div>
-                    <div>
+                    </p>
+                    <p>
                         {product.item}
-                    </div>
-                    <div>
+                    </p>
+                    <p>
                         <button onClick={(e) =>
                             this.props.deleteItem(product.id)}>Remove</button>
-                    </div>
+                    </p>
 
-                    <div>
+                    <p>
                         {'$' + product.each}
-                    </div>
+                    </p>
                     <input id='quantity' type='number' min='0' value={product.quantity}
                         onChange={(e) => {
                             if (parseInt(e.target.value, 10) > parseInt(product.quantity, 10)) {
@@ -75,9 +75,9 @@ class Cart extends React.Component {
                         }
                         } />
 
-                    <div>
+                    <p>
                         {'$' + product.price}
-                    </div>
+                    </p>
 
                 </div>
 
